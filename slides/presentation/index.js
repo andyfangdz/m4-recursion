@@ -30,11 +30,114 @@ import createTheme from "spectacle/lib/themes/default";
 
 // Import custom component
 import Interactive from "../assets/interactive";
+import CodeSlide from 'spectacle-code-slide';
+import TreeViz from './treeviz';
 
 // Require CSS
 require("normalize.css");
 require("spectacle/lib/themes/default/index.css");
 
+const sortTree = [
+  {
+    "name": "[3, 2, 5, 1, 4] => [1, 2, 3, 4, 5]",
+    "parent": "null",
+    "_children": [
+      {
+        "name": "[2, 1] => [1, 2]",
+        "parent": "[3, 2, 5, 1, 4] => [1, 2, 3, 4, 5]",
+        "_children": [
+          {
+            "name": "[1] => [1]",
+            "parent": "[2, 1] => [1, 2]"
+          },
+          {
+            "name": "[2] => [2]",
+            "parent": "[2, 1] => [1, 2]"
+          }
+        ]
+      },
+      {
+        "name": "[5, 4] => [4, 5]",
+        "parent": "[3, 2, 5, 1, 4] => [1, 2, 3, 4, 5]",
+        "_children": [
+          {
+            "name": "[4] => [4]",
+            "parent": "[5, 4] => [4, 5]"
+          },
+          {
+            "name": "[5] => [5]",
+            "parent": "[5, 4] => [4, 5]"
+          }
+        ]
+      }
+    ],
+    "children": null
+  }
+]
+
+const linkedListTree = [
+  {
+    "name": "head",
+    "parent": "null",
+    "children": null,
+    "_children": [
+      {
+        "name": "head.next",
+        "parent": "head",
+        "children": null,
+        "_children": [
+          {
+            "name": "(head.next).next",
+            "parent": "head.next",
+            "children": null
+          }
+        ]
+      }
+    ]
+  }
+]
+
+const treeTree = [
+  {
+    "name": "root",
+    "parent": "null",
+    "children": null,
+    "_children": [
+      {
+        "name": "root.left",
+        "parent": "root",
+        "children": null,
+        "_children": [
+          {
+            "name": "..left",
+            "parent": "root.left",
+            "children": null
+          }, {
+            "name": "..right",
+            "parent": "root.left",
+            "children": null
+          }
+        ]
+      },
+      {
+        "name": "root.right",
+        "parent": "root",
+        "children": null,
+        "_children": [
+          {
+            "name": "..left",
+            "parent": "root.right",
+            "children": null
+          }, {
+            "name": "..right",
+            "parent": "root.right",
+            "children": null
+          }
+        ]
+      }
+    ]
+  }
+]
 
 const images = {
   city: require("../assets/city.jpg"),
@@ -54,116 +157,104 @@ export default class Presentation extends React.Component {
     return (
       <Spectacle theme={theme}>
         <Deck transition={["zoom", "slide"]} transitionDuration={500}>
-          <Slide transition={["zoom"]} bgColor="primary">
-            <Heading size={1} fit caps lineHeight={1} textColor="black">
-              Spectacle
-            </Heading>
+          <Slide transition={["slide"]} bgColor="primary">
             <Heading size={1} fit caps>
-              A ReactJS Presentation Library
+              Divide and Conquer, Recursion
             </Heading>
-            <Heading size={1} fit caps textColor="black">
-              Where You Can Write Your Decks In JSX
-            </Heading>
-            <Link href="https://github.com/FormidableLabs/spectacle">
-              <Text bold caps textColor="tertiary">View on Github</Text>
-            </Link>
-            <Text textSize="1.5em" margin="20px 0px 0px" bold>Hit Your Right Arrow To Begin!</Text>
+            <Text textSize="1.5em" margin="20px 0px 0px">Dezhi “Andy” Fang ,GT TIP</Text>
           </Slide>
-          <Slide transition={["slide"]} bgColor="black" notes="You can even put notes on your slide. How awesome is that?">
+          <Slide transition={["slide"]} bgColor="white">
+            <Heading size={2} fit caps>
+              Story Time!
+            </Heading>
+            <List>
+              <Appear><ListItem>70+ Graded Papers</ListItem></Appear>
+              <Appear><ListItem>5 minutes</ListItem></Appear>
+              <Appear><ListItem>How to sort?</ListItem></Appear>
+              <Appear><ListItem>Abusing your friends.</ListItem></Appear>
+              <Appear><ListItem>Divide-Conquer-Combine</ListItem></Appear>
+              <Appear><ListItem>Fast forward to now...</ListItem></Appear>
+            </List>
+          </Slide>
+          <Slide transition={["slide"]} bgColor="black">
+            <BlockQuote>
+              <Quote>I have no idea what quicksort is.</Quote>
+              <Cite>Nervous Interviewee</Cite>
+            </BlockQuote>
+          </Slide>
+          <Slide transition={["slide"]}>
+            <CodePane
+              lang="python"
+              source={require("raw!../assets/easy-quicksort.py")}
+              margin="20px auto"
+              style={{fontSize: "0.7em"}}
+            />
+          </Slide>
+          <Slide transition={["slide"]} bgColor="black" notes="... This is not quicksort">
             <Image src={images.kat.replace("/", "")} margin="0px auto 40px" height="293px"/>
             <Heading size={2} caps fit textColor="primary" textFont="primary">
               Wait what?
             </Heading>
           </Slide>
-          <Slide transition={["zoom", "fade"]} bgColor="primary" notes="<ul><li>talk about that</li><li>and that</li></ul>">
+          <Slide transition={["slide"]}>
             <CodePane
-              lang="jsx"
-              source={require("raw!../assets/deck.example")}
+              lang="python"
+              source={require("raw!../assets/hard-quicksort.py")}
               margin="20px auto"
             />
           </Slide>
-          <Slide transition={["slide"]} bgImage={images.city.replace("/", "")} bgDarken={0.75}>
-            <Appear fid="1">
-              <Heading size={1} caps fit textColor="primary">
-                Full Width
-              </Heading>
-            </Appear>
-            <Appear fid="2">
-              <Heading size={1} caps fit textColor="tertiary">
-                Adjustable Darkness
-              </Heading>
-            </Appear>
-            <Appear fid="3">
-              <Heading size={1} caps fit textColor="primary">
-                Background Imagery
-              </Heading>
-            </Appear>
+          <CodeSlide
+            transition={[]}
+            lang="python"
+            code={require("raw!../assets/easy-quicksort.py")}
+            ranges={[
+              {loc: [0, 10], title: "Walking through"},
+              {loc: [1, 3], title: "The Obvious", note: "sort([]) => [], sort([a]) => [a]"},
+              {loc: [3, 7], title: "The Partition (Divide)"},
+              {loc: [7, 9], title: "The Sort (Conquer)"},
+              {loc: [9, 10], title: "The Concat (Combine)"},
+              {loc: [0, 10], title: 'That\'s all!'}
+              // ...
+            ]}/>
+          <Slide transition={["slide"]} bgColor="white">
+            <TreeViz graphId="sort-tree" treeData={sortTree}/>
           </Slide>
-          <Slide transition={["zoom", "fade"]} bgColor="primary">
-            <Heading caps fit>Flexible Layouts</Heading>
-            <Layout>
-              <Fill>
-                <Heading size={4} caps textColor="secondary" bgColor="white" margin={10}>
-                  Left
-                </Heading>
-              </Fill>
-              <Fill>
-                <Heading size={4} caps textColor="secondary" bgColor="white" margin={10}>
-                  Right
-                </Heading>
-              </Fill>
-            </Layout>
-          </Slide>
-          <Slide transition={["slide"]} bgColor="black">
-            <BlockQuote>
-              <Quote>Wonderfully formatted quotes</Quote>
-              <Cite>Ken Wheeler</Cite>
-            </BlockQuote>
-          </Slide>
-          <Slide transition={["spin", "zoom"]} bgColor="tertiary">
-            <Heading caps fit size={1} textColor="primary">
-              Inline Markdown
+          <Slide transition={["slide"]}>
+            <Heading size={2} fit caps>
+              Recursive Data Structures
             </Heading>
-            <Markdown>
-              {`
-![Markdown Logo](${images.markdown.replace("/", "")})
-
-You can write inline images, [Markdown Links](http://commonmark.org), paragraph text and most other markdown syntax
-* Lists too!
-* With ~~strikethrough~~ and _italic_
-* And lets not forget **bold**
-              `}
-            </Markdown>
-          </Slide>
-          <Slide transition={["slide", "spin"]} bgColor="primary">
-            <Heading caps fit size={1} textColor="tertiary">
-              Smooth
-            </Heading>
-            <Heading caps fit size={1} textColor="secondary">
-              Combinable Transitions
-            </Heading>
-          </Slide>
-          <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
             <List>
-              <Appear><ListItem>Inline style based theme system</ListItem></Appear>
-              <Appear><ListItem>Autofit text</ListItem></Appear>
-              <Appear><ListItem>Flexbox layout system</ListItem></Appear>
-              <Appear><ListItem>React-Router navigation</ListItem></Appear>
-              <Appear><ListItem>PDF export</ListItem></Appear>
-              <Appear><ListItem>And...</ListItem></Appear>
+              <Appear><ListItem>E.g., Linked List, Trees</ListItem></Appear>
+              <Appear>
+                <ListItem>
+                  <Layout>
+                    <Fill>
+                      <TreeViz graphId="general-tree1" treeData={linkedListTree} width={500} height={500} />
+                    </Fill>
+                    <Fill>
+                      <TreeViz graphId="general-tree2" treeData={treeTree} width={500} height={500} />
+                    </Fill>
+                  </Layout>
+                </ListItem>
+              </Appear>
             </List>
           </Slide>
-          <Slide transition={["slide"]} bgColor="primary">
-            <Heading size={1} caps fit textColor="tertiary">
-              Your presentations are interactive
-            </Heading>
-            <Interactive/>
-          </Slide>
-          <Slide transition={["spin", "slide"]} bgColor="tertiary">
-            <Heading size={1} caps fit lineHeight={1.5} textColor="primary">
-              Made with love in Seattle by
-            </Heading>
-            <Link href="http://www.formidablelabs.com"><Image width="100%" src={images.logo}/></Link>
+
+          <Slide transition={["spin", "zoom"]} bgColor="tertiary">
+            {/*<Heading caps fit size={1} textColor="primary">*/}
+              {/*Exercises*/}
+            {/*</Heading>*/}
+            <Markdown>
+              {`
+1. Given a binary tree, find its maximum depth.
+
+2. You have two every large binary trees: \`T1\`,
+with millions of nodes, and \`T2\`, with hundreds of nodes.
+Create an algorithm to decide if \`T2\` is a subtree of \`T1\`.
+
+3. Calculate the \`a^n % b\` where \`a\`, \`b\` and \`n\` are all 32bit integers.
+              `}
+            </Markdown>
           </Slide>
         </Deck>
       </Spectacle>
