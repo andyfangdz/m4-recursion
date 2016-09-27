@@ -164,7 +164,8 @@ export default class Presentation extends React.Component {
             <Text textSize="1.5em" margin="20px 0px 0px">Dezhi “Andy” Fang, </Text>
             <Link href="https://cv.andyfang.me"><Text textSize="0.9em">https://andyfang.me</Text></Link>
             <Link href="mailto:dezhifang@gatech.edu"><Text textSize="0.9em">dezhifang@gatech.edu</Text></Link>
-            <Text margin="2em auto">View this slide at: https://gttip-m4.surge.sh</Text>
+            <Text margin="2em auto">View this deck at: http://bit.ly/gttip_fall2016_m4</Text>
+            <Text margin="2em auto" textSize="0.9em">Navigate the deck using the left and right arrow keys on your keyboard. Interactive features require up or down arrows and mouse.</Text>
           </Slide>
           <Slide transition={["slide"]} bgColor="white">
             <Heading size={2} fit caps>
